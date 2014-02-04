@@ -1,0 +1,103 @@
+.clear {
+    clear:both;
+}
+
+.bordered {
+    border: 1px solid #DDD;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+.mytop {
+    margin-top : 7px;
+}
+
+.errorlist {
+    list-style: none;
+    margin-left: 0px;
+    color: #b94a48;
+}
+
+.fix-bordered-margin {
+    margin-left: 30px;
+}
+
+.well-margin {
+    margin-left: 20px;
+}
+
+.nwtype-list ul {
+    list-style: none;
+    margin-left: 0px;
+}
+
+.nwtype-list li {
+    display: inline-block;
+}
+
+.nwtype-list input {
+    vertical-align: text-bottom;
+}
+
+.printer-iframe {
+    width: 890px;
+    height: 750px;
+    border: 0px;
+    -moz-transform: scale(0.88, 0.88);
+    -webkit-transform: scale(0.88, 0.88);
+    -o-transform: scale(0.88, 0.88);
+    -ms-transform: scale(0.88, 0.88);
+    transform: scale(0.88, 0.88);
+    -transform-origin: top left;
+    -webkit-transform-origin:top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+    transform-origin: top left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.table-bordered {
+    border-collapse: collapse;
+}
+
+.nodisplay {
+    visibility: hidden;
+}
+
+.sysinfo-tbl-col-left {
+    width: 25%;
+}
+
+.sysinfo-tbl-col-right {
+    width: 75%;
+}
+
+.table-first-child td {
+    border: none
+}
+
+.network-down-width {
+    width: 30%;
+}
+
+.sysinfo-interface-top {
+    margin-top: 10px;
+}
+
+.strip-margin-left {
+    margin-left: 0px;
+}
+
+.border-left {
+    border-left: 1px solid #DDD;
+    padding-left: 10px;
+}
+
+.border-right {
+    border-right: 1px solid #DDD;
+    padding-right: 50px;
+}

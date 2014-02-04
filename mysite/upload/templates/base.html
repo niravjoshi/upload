@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<head>
+    <script src="/static/js/jquery-1.11.0.js"></script>
+    <!-- <script src="/static/js/jquery-1.8.2.js"></script>
+    <script src="/static/js/jquery-1.9.1.js"></script> -->
+    <script src="/static/js/jquery.form.js"></script>
+    <script src="/static/js/configtool.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+	<title>UPLOAD</title>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<meta name="description" content="upload" />
+	<meta name="keywords" content="upload" />
+	<link rel="stylesheet" type="text/css" href="/static/css/gretel.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" media="screen" />
+    {% block "page-spec-styles" %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% block "top" %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {% block "left" %}
+                {% endblock %}
+            </div>
+            <div class="col-md-6">
+                {% block "right" %}
+                {% endblock %}
+            </div>
+        </div> <!-- end of left and right block -->
+    </div> <!-- end of container -->
+</body>
+
+{% block "page-scripts" %}
+{% endblock %}
+</html>
+
+
+
+            
+
+
+   
+
