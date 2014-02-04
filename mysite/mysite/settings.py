@@ -82,6 +82,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-        '/home/nivi/Documents/projects/mysite/upload/static',
-       )
+MEDIA_ROOT = '/tmp/'

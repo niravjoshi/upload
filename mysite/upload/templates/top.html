@@ -10,29 +10,19 @@
 {% block "left" %}
 
 {% url "top" as upload_file %}
-<form name="upload" class="form-horizontal" role="form" action="{{ upload_file }}" 
-    method="POST">
+<form name="upload" class="form-horizontal" enctype="multipart/form-data" 
+    action="{{ upload_file }}" method="POST">
     {% csrf_token %}
-      <input type="text" name="email" id="inputEmail" placeholder="Email">
   <div class="form-group">
-    <label for="inputEmail3" class="col-md-2 control-label">Email</label>
+    <label for="email_user" class="col-md-2 control-label">Email</label>
     <div class="col-md-6">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      <input type="text" class="form-control" id="id_email_user" name="email_user" placeholder="Email">
     </div>
   </div>
   <div class="form-group">
     <label for="exampleInputFile" class="col-md-2 control-label">File input</label>
     <div class="col-md-10 mytop">
-        <input type="file" id="exampleInputFile">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
+        <input type="file" id="id_ufile" name="ufile">
     </div>
   </div>
   <div class="form-group">
