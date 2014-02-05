@@ -16,13 +16,14 @@
   <div class="form-group">
     <label for="email_user" class="col-md-2 control-label">Email</label>
     <div class="col-md-6">
-      <input type="text" class="form-control" id="id_email_user" name="email_user" placeholder="Email">
+      <input type="text" class="form-control" id="id_user_email" name="user_email" placeholder="Email">
     </div>
+    {{ form.email_user.errors }}
   </div>
   <div class="form-group">
     <label for="exampleInputFile" class="col-md-2 control-label">File input</label>
     <div class="col-md-10 mytop">
-        <input type="file" id="id_ufile" name="ufile">
+        <input type="file" id="id_user_file" name="user_file">
     </div>
   </div>
   <div class="form-group">

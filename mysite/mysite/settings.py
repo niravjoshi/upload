@@ -82,4 +82,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/tmp/'
+MEDIA_ROOT = '/home/niravj/Desktop/work/pro/upload/mysite/files/'
+
+MEDIA_URL = '/files/'
