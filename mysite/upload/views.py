@@ -19,7 +19,7 @@ def demo(request):
 
             else:
                 print "form is not valid"
-                print form.errors
+                print "Error ==> ", form.errors
 
         else:
             form = UploadFile()
