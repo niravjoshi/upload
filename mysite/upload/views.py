@@ -30,7 +30,7 @@ def demo(request):
                 file_name = request.FILES['user_file']
                 if profile_user:
                     print "Old User"
-                    ufile = Ufile.objects.create(user_file=file_name, user_profile = profile_user)
+                    ufile = Ufile.objects.create(user_file=file_name, user_profile=profile_user, file_name=file_name)
                     ufile.save()
                     print "File saved"
                     success = True
