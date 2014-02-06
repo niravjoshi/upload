@@ -1,8 +1,10 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import Form
 
-from upload.models import Ufile
+from upload.models import UserProfile,Ufile
 
-class UploadFile(ModelForm):
+class UserFileForm(Form):
+    user_email = forms.EmailField()
+    user_file = forms.FileField()
     class Meta:
-        model = Ufile
+        pass
