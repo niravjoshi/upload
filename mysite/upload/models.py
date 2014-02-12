@@ -11,7 +11,7 @@ class UserProfile(models.Model):
 class Ufile(models.Model):
     user_profile = models.ForeignKey(UserProfile)
     user_file = models.FileField(upload_to='.')
-    file_name = models.CharField(max_length=100, default=FILENAME)
+    file_name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return self.file_name

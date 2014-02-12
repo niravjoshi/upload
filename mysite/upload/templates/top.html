@@ -21,6 +21,7 @@
 <form name="upload" class="form-horizontal" enctype="multipart/form-data" 
     action="{{ upload_file }}" method="POST">
     {% csrf_token %}
+    Current User: {{ user }}
   <div class="form-group">
     <label for="email_user" class="col-md-2 control-label">Email</label>
     <div class="col-md-6">
@@ -45,5 +46,10 @@
     </div>
   </div>
 </form>
+
+{% for file in files %}
+    <br/>
+    {{ file.file_name }}
+{% endfor %}
 
 {% endblock %}
