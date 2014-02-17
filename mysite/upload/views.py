@@ -1,10 +1,33 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
 from upload.forms import UserFileForm
 from upload.models import Ufile, UserProfile
 
+def login(request):
+    print "Request: ", request.POST
+    params = {}
+    form = User(request.POST)
+    params['form'] = form
+    email = request.POST.get('email', False)
+    passwd = request.POST.get('password', False)
+    user = authenticate(email=email, password=passwd)
+    print "user: ", user
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return render_to_response('top.html', params, context_instance=RequestContext(request))
+    else:
+        return render_to_response('login.html', params, context_instance=RequestContext(request))
+
+def signup(request):
+    params = {}
+    return render_to_response('singup.html', params, context_instance=RequestContext(request))
+   
+#@login_required
 def demo(request):
     params = {}
     success = False

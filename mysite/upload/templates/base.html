@@ -27,12 +27,20 @@
         <div class="row">
             <div class="col-md-12">
                 {% block "top" %}
+                <div class="text-center">
+                <h1> Demo Site </h1>
+                <p><hr></p>
+                </div>
                 {% endblock %}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 {% block "left" %}
+                {% endblock %}
+            </div>
+            <div class="col-md-1">
+                {% block "middle" %}
                 {% endblock %}
             </div>
             <div class="col-md-6">

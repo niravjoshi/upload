@@ -1,12 +1,5 @@
 {% extends "base.html" %}
 
-{% block "top" %}
-<div class="text-center">
-    <h1> Demo Site </h1>
-    <p><hr></p>
-</div>
-{% endblock %}
-
 {% block "left" %}
 
 {% if success %}
@@ -17,7 +10,7 @@
     </div>
 {% endif %}
 
-{% url "top" as upload_file %}
+{% url "demo" as upload_file %}
 <form name="upload" class="form-horizontal" enctype="multipart/form-data" 
     action="{{ upload_file }}" method="POST">
     {% csrf_token %}
