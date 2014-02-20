@@ -4,8 +4,10 @@
 
 <table class="table">
 </table>
+
+<h4 class="right-block-left">Registered User</h4>
 {% url "login" as upload_file %}
-<form name="upload" class="form-horizontal"  action="{{ upload_file }}" 
+<form name="upload" class="form-horizontal left-block-top"  action="{{ upload_file }}" 
     method="POST">
     {% csrf_token %}
   <div class="form-group">
@@ -44,8 +46,8 @@
 
 {% block "right" %}
 
-<h4> Create an account </h4>
-<form name="upload" class="form-horizontal"  action="{{ upload_file }}" 
+<h4 class="right-block-left">New user? Create an account</h4>
+<form name="upload" class="form-horizontal form-left-top"  action="{{ upload_file }}" 
     method="POST">
     {% csrf_token %}
   <div class="form-group">
@@ -82,8 +84,8 @@
   </div>
   
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" class="btn btn-success" value="Submit">
+    <div class="col-md-2">
+        <input type="submit" class="btn btn-warning" value="Submit">
     </div>
   </div>
 </form>

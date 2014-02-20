@@ -7,15 +7,23 @@
     margin-left: 20px;
 }
 
+.left-block-top {
+    margin-top: 20px;
+   }
+
 .line-center {
-    border-right: 1px solid black;
+    border-right: 1px solid grey;
     height: 400px;
    }
 
-.clear {
-    clear:both;
+.right-block-left {
+    margin-left: 85px;
 }
 
+.form-left-top {
+    margin-left: 85px;
+    margin-top: 20px;
+}
 .bordered {
     border: 1px solid #DDD;
     border-radius: 6px;

@@ -14,6 +14,12 @@ def login(request):
     params['form'] = form
     email = request.POST.get('email', False)
     passwd = request.POST.get('password', False)
+    fname = request.POST.get('first_name', False)
+    lname = request.POST.get('last_name', False)
+    print "fname: %s\n lname: %s\n email: %s\n passwd: %s" %(fname,lname,email,passwd)
+    """
+    TO DO: Create new user
+    """
     user = authenticate(email=email, password=passwd)
     print "user: ", user
     if user is not None:
