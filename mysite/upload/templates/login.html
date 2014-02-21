@@ -1,9 +1,22 @@
 {% extends "base.html" %}
-
 {% block "left" %}
-
 <table class="table">
 </table>
+
+{% if invalid %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{invalid}}.
+    </div>
+{% endif %}
+{% if required %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{required}}.
+    </div>
+{% endif %}
 
 <h4 class="right-block-left">Registered User</h4>
 {% url "login" as upload_file %}
@@ -14,18 +27,13 @@
     <label for="email" class="col-md-2 control-label">Email</label>
     <div class="col-md-6">
         <input type="text" class="form-control" id="id_email" name="email" placeholder="Email">
-        <div class="form-group error">
-            <span class="help-block">{{ form.email.errors }}</span>
-        </div>
     </div>
   </div>
   <div class="form-group">
     <label for="password" class="col-md-2 control-label">Password</label>
     <div class="col-md-6">
         <input type="password" class="form-control" id="id_password" name="password" placeholder="Password">
-        <div class="form-group error">
-            <span class="help-block">{{ form.password.errors }}</span>
-        </div>
+        <input type="hidden" name="login" value="login">
     </div>
   </div>
   <div class="form-group">
@@ -42,12 +50,40 @@
 {% endblock %}
 
 {% block "right" %}
-{% if user_exists %}
-    {{user_exists}}
+{% if some_error %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{some_error}}.
+    </div>
 {% endif %}
-
+{% if valid_input %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{valid_input}}.
+    </div>
+{% endif %}
+{% if valid_email %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{valid_email}}.
+    </div>
+{% endif %}
+{% if user_exists %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{user_exists}}.
+    </div>
+{% endif %}
 {% if user_created %}
-    {{user_created}}
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        {{user_created}}.
+    </div>
 {% endif %}
 
 <h4 class="right-block-left">New user? Create an account</h4>
@@ -57,33 +93,21 @@
   <div class="form-group">
     <div class="col-md-6">
         <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="First Name">
-        <div class="form-group error">
-            <span class="help-block">{{ form.first_name.errors }}</span>
-        </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-6">
         <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Last Name">
-        <div class="form-group error">
-            <span class="help-block">{{ form.last_name.errors }}</span>
-        </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-6">
         <input type="text" class="form-control" id="id_email" name="email" placeholder="Your Email Address">
-        <div class="form-group error">
-            <span class="help-block">{{ form.email.errors }}</span>
-        </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-6">
         <input type="password" class="form-control" id="id_password" name="password" placeholder="New Password">
-        <div class="form-group error error-without-list">
-            <span class="help-block errorlist">{{ form.password.errors }}</span>
-        </div>
     </div>
   </div>
   
