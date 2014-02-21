@@ -24,6 +24,13 @@
     margin-left: 85px;
     margin-top: 20px;
 }
+
+.error-without-list {
+    color: #b94a48;
+    list-style: none;
+}
+
+
 .bordered {
     border: 1px solid #DDD;
     border-radius: 6px;

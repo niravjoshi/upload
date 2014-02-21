@@ -34,17 +34,21 @@
     </div>
   </div>
 </form>
-
 {% endblock %}
 
 {% block "middle" %}
-
 <div class="line-center">
 </div>
-
 {% endblock %}
 
 {% block "right" %}
+{% if user_exists %}
+    {{user_exists}}
+{% endif %}
+
+{% if user_created %}
+    {{user_created}}
+{% endif %}
 
 <h4 class="right-block-left">New user? Create an account</h4>
 <form name="upload" class="form-horizontal form-left-top"  action="{{ upload_file }}" 
@@ -77,8 +81,8 @@
   <div class="form-group">
     <div class="col-md-6">
         <input type="password" class="form-control" id="id_password" name="password" placeholder="New Password">
-        <div class="form-group error">
-            <span class="help-block">{{ form.password.errors }}</span>
+        <div class="form-group error error-without-list">
+            <span class="help-block errorlist">{{ form.password.errors }}</span>
         </div>
     </div>
   </div>

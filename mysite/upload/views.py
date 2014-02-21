@@ -4,32 +4,59 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
-from upload.forms import UserFileForm
+from upload.forms import UserFileForm, UserForm
 from upload.models import Ufile, UserProfile
 
-def login(request):
-    print "Request: ", request.POST
-    params = {}
-    form = User(request.POST)
-    params['form'] = form
-    email = request.POST.get('email', False)
-    passwd = request.POST.get('password', False)
-    fname = request.POST.get('first_name', False)
-    lname = request.POST.get('last_name', False)
-    print "fname: %s\n lname: %s\n email: %s\n passwd: %s" %(fname,lname,email,passwd)
-    """
-    TO DO: Create new user
-    """
-    user = authenticate(email=email, password=passwd)
-    print "user: ", user
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return render_to_response('top.html', params, context_instance=RequestContext(request))
-    else:
-        return render_to_response('login.html', params, context_instance=RequestContext(request))
-
 def signup(request):
+    params = {}
+    if request.method == "POST" :
+        try:
+            form = UserForm(request.POST)
+            params['form'] = form
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                try:
+                    user = User.objects.get(email=email)
+                except Exception, e:
+                    print "User Error: %s" %str(e)
+                    user = None
+
+                if user:
+                    user_exists = None
+                    params['user_exists'] = "User with %s email-id already exists." %email
+
+                else:
+                    passwd = form.cleaned_data['password']
+                    fname = form.cleaned_data['first_name']
+                    lname = form.cleaned_data['last_name']
+
+                    new_user = User.objects.create_user(fname, email, password=passwd, last_name=lname)
+                    new_user.save()
+                    print "user saved"
+
+                    print "fname: %s\nlname: %s\nemail: %s\npasswd: %s" %(fname,lname,email,passwd)
+                    params['form'] = form
+                    user_created = None
+                    params['user_created'] = "Congrats!!! Account created successfully."
+                    """
+                    TO DO: Create new user
+                    """
+        except Exception, e:
+            print "Login Error: %s" %str(e)
+    #user = authenticate(email=email, password=passwd)
+    #print "user: ", user
+    #if user is not None:
+    #    if user.is_active:
+    #        login(request, user)
+    #        return render_to_response('top.html', params, context_instance=RequestContext(request))
+    #else:
+    #    return render_to_response('login.html', params, context_instance=RequestContext(request))
+    else:
+        params['form'] = UserForm()
+
+    return render_to_response('login.html', params, context_instance=RequestContext(request))
+
+def login(request):
     params = {}
     return render_to_response('singup.html', params, context_instance=RequestContext(request))
    
