@@ -18,26 +18,23 @@
     </div>
 {% endif %}
 
-<h4 class="right-block-left">Registered User</h4>
-{% url "login" as upload_file %}
+{% url "top" user.id as upload_file %}
 <form name="upload" class="form-horizontal left-block-top"  action="{{ upload_file }}" 
     method="POST">
     {% csrf_token %}
-  <div class="form-group">
-    <label for="email" class="col-md-2 control-label">Email</label>
+  <div class="form-group login-width">
     <div class="col-md-6">
         <input type="text" class="form-control" id="id_email" name="email" placeholder="Email">
     </div>
   </div>
-  <div class="form-group">
-    <label for="password" class="col-md-2 control-label">Password</label>
+  <div class="form-group login-width">
     <div class="col-md-6">
         <input type="password" class="form-control" id="id_password" name="password" placeholder="Password">
         <input type="hidden" name="login" value="login">
     </div>
   </div>
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-2">
         <input type="submit" class="btn btn-success" value="Sign in">
     </div>
   </div>
@@ -86,8 +83,9 @@
     </div>
 {% endif %}
 
+{% url "login" as login_page %}
 <h4 class="right-block-left">New user? Create an account</h4>
-<form name="upload" class="form-horizontal form-left-top"  action="{{ upload_file }}" 
+<form name="upload" class="form-horizontal form-left-top"  action="{{ login_page }}" 
     method="POST">
     {% csrf_token %}
   <div class="form-group">
@@ -113,7 +111,7 @@
   
   <div class="form-group">
     <div class="col-md-2">
-        <input type="submit" class="btn btn-warning" value="Submit">
+        <input type="submit" class="btn btn-warning" value="Sign up">
     </div>
   </div>
 </form>

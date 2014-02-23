@@ -9,7 +9,12 @@
 
 .left-block-top {
     margin-top: 20px;
+    margin-left: 60px;
    }
+
+.login-width {
+    width: 125%;
+}
 
 .line-center {
     border-right: 1px solid grey;

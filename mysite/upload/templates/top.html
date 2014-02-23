@@ -10,31 +10,19 @@
     </div>
 {% endif %}
 
-{% url "demo" as upload_file %}
-<form name="upload" class="form-horizontal" enctype="multipart/form-data" 
+{% url "demo" user.id as upload_file %}
+Hi, {{ user.id }}
+<form name="upload" class="form-horizontal left-block-top" enctype="multipart/form-data" 
     action="{{ upload_file }}" method="POST">
     {% csrf_token %}
-    Current User: {{ user }}
-  <div class="form-group">
-    <label for="email_user" class="col-md-2 control-label">Email</label>
-    <div class="col-md-6">
-        <input type="text" class="form-control" id="id_user_email" name="user_email" placeholder="Email">
-        <div class="form-group error">
-            <span class="help-block">{{ form.user_email.errors }}</span>
-        </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputFile" class="col-md-2 control-label">File input</label>
+ <div class="form-group">
     <div class="col-md-10 mytop">
         <input type="file" id="id_user_file" name="user_file">
-        <div class="form-group error">
             <span class="help-block">{{ form.user_file.errors }}</span>
-        </div>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-2">
         <input type="submit" class="btn btn-success" value="Upload">
     </div>
   </div>

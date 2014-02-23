@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 from upload.forms import UserFileForm, UserForm
-from upload.models import Ufile, UserProfile
+from upload.models import Ufile
 
 def login_page(request):
     params = {}
@@ -21,13 +21,11 @@ def login_page(request):
                     #
                     # login request
                     #
-                    user = authenticate(email=email, password=passwd)
-                    print "user: ", user
+                    user = authenticate(username=email, password=passwd)
                     if user is not None:
                         if user.is_active:
                             login(request, user)
-                            logged = None
-                            params['logged'] = "Logged in successfully"
+                            params['user'] = User.objects.get(username=user)
                             return render_to_response('top.html', params, context_instance=RequestContext(request))
                     else:
                         invalid = None
@@ -66,7 +64,7 @@ def login_page(request):
                         passwd = form.cleaned_data['password']
                         fname = form.cleaned_data['first_name']
                         lname = form.cleaned_data['last_name']
-                        new_user = User.objects.create_user(fname, email, password=passwd, last_name=lname)
+                        new_user = User.objects.create_user(email, email, password=passwd, first_name=fname, last_name=lname)
                         new_user.save()
                         print "user saved"
                         print "fname: %s\nlname: %s\nemail: %s\npasswd: %s" %(fname,lname,email,passwd)
@@ -96,8 +94,8 @@ def login_page(request):
 
     return render_to_response('login.html', params, context_instance=RequestContext(request))
 
-#@login_required
-def demo(request):
+@login_required
+def demo(request, id):
     params = {}
     success = False
     file_name = None
@@ -109,54 +107,17 @@ def demo(request):
             form = UserFileForm(request.POST, request.FILES)
             if form.is_valid():
                 print "form is valid"
-                #
-                # Get the user's email ID and check whether user exists or not. 
-                #
-                pf_user_email = request.POST.get('user_email')
-                try:
-                    userprofile = UserProfile.objects.get(user_email=pf_user_email)
-                    user = User.objects.get(email=pf_user_email)
-                except Exception, e:
-                    userprofile = None
-                    user = None
-                    print "Error: ", str(e)
-                #
-                # Store file name and if user exists then add uploaded file to that user's account. 
-                #
                 file_name = request.FILES['user_file']
-                if userprofile:
-                    params['user'] = user.username
-                    print "Old User: ", user.username
-
-                    ufile = Ufile.objects.create(user_file=file_name, user_profile=userprofile, file_name=file_name)
-                    ufile.save()
-                    print "File saved"
-                    success = True
-
-                else:
-                    #
-                    # Creating new user
-                    #
-                    user = User.objects.create_user(pf_user_email, pf_user_email, None)
-                    user.save()
-
-                    params['user'] = user.username
-                    print "New User: ", user.username
-                    userprofile = UserProfile.objects.create(user_email=pf_user_email)
-                    userprofile.save()
-                    print "Email saved"
-
-                    ufile = Ufile.objects.create(user_file=file_name,user_profile=userprofile, file_name=file_name)
-                    ufile.save()
-                    print "File saved"
-                    success = True
-
+                user = User.objects.get(id=id)
+                ufile = Ufile.objects.create(user_file=file_name, user_profile=user, file_name=file_name)
+                ufile.save()
+                print "File saved"
+                success = True
                 #
                 # Fetch all file names of this user
                 #
                 if success:
-                    params['files'] = Ufile.objects.filter(user_profile=userprofile)
-
+                    params['files'] = Ufile.objects.filter(user_profile=user)
             #
             # Form is invalid.
             #
@@ -164,7 +125,6 @@ def demo(request):
                 form = UserFileForm(request.POST)
                 print "form is not valid"
                 print "Form Error : ", form.errors
-
         #
         # Get method
         #
