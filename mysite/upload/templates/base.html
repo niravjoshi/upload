@@ -29,9 +29,14 @@
                 {% block "top" %}
                 <div class="text-center">
                     <h1> Demo Site </h1>
-                    <span> Hi, {{ user.first_name }}</span>
-                <p><hr></p>
+                    {% if user.first_name %}
+                        <div class="col-md-12"
+                            <span class="">Hi, {{ user.first_name }}</span>
+                            <a href="/logout/" class="btn btn-danger" role="button">Logout</a>
+                        </div>
+                    {% endif %}
                 </div>
+                <hr>
                 {% endblock %}
             </div>
         </div>

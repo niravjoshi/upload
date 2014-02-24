@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
@@ -9,24 +10,35 @@ from upload.models import Ufile
 
 def login_page(request):
     params = {}
+    #
+    # Checking if user is already logged in or not.
+    #
+    if request.user.is_authenticated():
+        return render_to_response('upload.html', params, context_instance=RequestContext(request))
+    #
+    # If post request
+    #
     if request.method == "POST" :
         try:
             #
             # Checking if its login or signup request.
             #
-            if request.POST.get('login'):
+            if request.POST.get('login_page'):
+                #
+                # Login request
+                #
                 email = request.POST.get('email')
                 passwd = request.POST.get('password')
                 if email and passwd:
                     #
-                    # login request
+                    # login request, authenticate user then active and log the user in current session.
                     #
                     user = authenticate(username=email, password=passwd)
                     if user is not None:
                         if user.is_active:
                             login(request, user)
                             params['user'] = User.objects.get(username=user)
-                            return render_to_response('top.html', params, context_instance=RequestContext(request))
+                            return render_to_response('upload.html', params, context_instance=RequestContext(request))
                     else:
                         invalid = None
                         params['invalid'] = "Invalid email-id or password"
@@ -94,8 +106,8 @@ def login_page(request):
 
     return render_to_response('login.html', params, context_instance=RequestContext(request))
 
-@login_required
-def demo(request, id):
+@login_required(login_url = '/login/')
+def upload(request, id):
     params = {}
     success = False
     file_name = None
@@ -108,7 +120,7 @@ def demo(request, id):
             if form.is_valid():
                 print "form is valid"
                 file_name = request.FILES['user_file']
-                user = User.objects.get(id=id)
+                user = User.objects.get(username = request.user)
                 ufile = Ufile.objects.create(user_file=file_name, user_profile=user, file_name=file_name)
                 ufile.save()
                 print "File saved"
@@ -137,4 +149,10 @@ def demo(request, id):
     params['form'] = form
     params['success'] = success
     params['file_name'] = file_name
-    return render_to_response('top.html', params, context_instance=RequestContext(request))
+    return render_to_response('upload.html', params, context_instance=RequestContext(request))
+
+@login_required(login_url = '/login/')
+def logout_page(request):
+    params = {}
+    logout(request)
+    return render_to_response('logout.html', params, context_instance=RequestContext(request))

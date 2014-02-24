@@ -18,7 +18,7 @@
     </div>
 {% endif %}
 
-{% url "top" user.id as upload_file %}
+{% url "upload" user.id as upload_file %}
 <form name="upload" class="form-horizontal left-block-top"  action="{{ upload_file }}" 
     method="POST">
     {% csrf_token %}
@@ -30,7 +30,7 @@
   <div class="form-group login-width">
     <div class="col-md-6">
         <input type="password" class="form-control" id="id_password" name="password" placeholder="Password">
-        <input type="hidden" name="login" value="login">
+        <input type="hidden" name="login_page" value="login_page">
     </div>
   </div>
   <div class="form-group">

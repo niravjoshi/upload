@@ -10,7 +10,7 @@
     </div>
 {% endif %}
 
-{% url "demo" user.id as upload_file %}
+{% url "upload" user.id as upload_file %}
 Hi, {{ user.id }}
 <form name="upload" class="form-horizontal left-block-top" enctype="multipart/form-data" 
     action="{{ upload_file }}" method="POST">

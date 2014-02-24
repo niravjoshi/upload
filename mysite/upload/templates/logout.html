@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block "left" %}
+
+{% url "login" as login_page %}
+<div class="well">
+    You are logged out successfully.
+    Click <a href="/login/" >Here</a> to login again.
+</div>
+
+{% endblock %}
