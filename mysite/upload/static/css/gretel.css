@@ -30,6 +30,10 @@
     margin-top: 20px;
 }
 
+.logout-button {
+    margin-left: 20px;
+    margin-right: -700px;
+
 .error-without-list {
     color: #b94a48;
     list-style: none;

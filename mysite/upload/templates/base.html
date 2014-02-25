@@ -21,35 +21,36 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-xs-12">
                 {% block "top" %}
                 <div class="text-center">
-                    <h1> Demo Site </h1>
+                    <h4>
                     {% if user.first_name %}
-                        <div class="col-md-12"
-                            <span class="">Hi, {{ user.first_name }}</span>
-                            <a href="/logout/" class="btn btn-danger" role="button">Logout</a>
-                        </div>
+                        <span class="well well-sm"><i>Hello, {{ user.first_name }}</i></span>
+                            <a href="/logout/" class="btn btn-danger logout-button" role="button">Logout</a>
+                    {% else %}
+                        <h1> Demo Site </h1>
                     {% endif %}
+                    </h4>
                 </div>
                 <hr>
                 {% endblock %}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-xs-5">
                 {% block "left" %}
                 {% endblock %}
             </div>
-            <div class="col-md-1">
+            <div class="col-xs-1">
                 {% block "middle" %}
                 {% endblock %}
             </div>
-            <div class="col-md-6">
+            <div class="col-xs-6">
                 {% block "right" %}
                 {% endblock %}
             </div>

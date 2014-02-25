@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,8 @@ def login_page(request):
     # Checking if user is already logged in or not.
     #
     if request.user.is_authenticated():
-        return render_to_response('upload.html', params, context_instance=RequestContext(request))
+        return HttpResponseRedirect(reverse(upload))
+        #return render_to_response('upload.html', params, context_instance=RequestContext(request))
     #
     # If post request
     #
@@ -38,7 +40,8 @@ def login_page(request):
                         if user.is_active:
                             login(request, user)
                             params['user'] = User.objects.get(username=user)
-                            return render_to_response('upload.html', params, context_instance=RequestContext(request))
+                            return HttpResponseRedirect(reverse(upload))
+                            #return render_to_response('upload.html', params, context_instance=RequestContext(request))
                     else:
                         invalid = None
                         params['invalid'] = "Invalid email-id or password"
@@ -82,7 +85,7 @@ def login_page(request):
                         print "fname: %s\nlname: %s\nemail: %s\npasswd: %s" %(fname,lname,email,passwd)
                         params['form'] = form
                         user_created = None
-                        params['user_created'] = "Congrats!!! Account created successfully."
+                        params['user_created'] = "Congrats!!! Account created successfully. Sign in with same credentials"
                 #
                 # Form is invalid
                 #
@@ -107,7 +110,7 @@ def login_page(request):
     return render_to_response('login.html', params, context_instance=RequestContext(request))
 
 @login_required(login_url = '/login/')
-def upload(request, id):
+def upload(request):
     params = {}
     success = False
     file_name = None
@@ -125,11 +128,6 @@ def upload(request, id):
                 ufile.save()
                 print "File saved"
                 success = True
-                #
-                # Fetch all file names of this user
-                #
-                if success:
-                    params['files'] = Ufile.objects.filter(user_profile=user)
             #
             # Form is invalid.
             #
@@ -145,7 +143,10 @@ def upload(request, id):
             
     except Exception, e:
         print "Error is: ", str(e)
-
+    #
+    # Fetching all files of this user.
+    #
+    params['files'] = Ufile.objects.filter(user_profile=request.user)
     params['form'] = form
     params['success'] = success
     params['file_name'] = file_name
