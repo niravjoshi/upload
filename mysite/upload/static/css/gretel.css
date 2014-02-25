@@ -33,12 +33,24 @@
 .logout-button {
     margin-left: 20px;
     margin-right: -700px;
+}
+
+.well-color {
+    background-color: red;
+}
+
+.delete-file {
+    margin-left: 15px;
+}
 
 .error-without-list {
     color: #b94a48;
     list-style: none;
 }
 
+.bg-image {
+    background-image: url('images/background-image.jpg')
+}
 
 .bordered {
     border: 1px solid #DDD;
