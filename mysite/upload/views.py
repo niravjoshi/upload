@@ -1,5 +1,7 @@
+import os
+
 from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
@@ -8,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from upload.forms import UserFileForm, UserForm
 from upload.models import Ufile
+
+from upload.constants import FILEPATH
+
 
 def login_page(request):
     params = {}
@@ -97,8 +102,6 @@ def login_page(request):
                         valid_input = None
                         params['valid_input'] = "All fields are required."
 
-
-
         except Exception, e:
             params['form'] = form
             some_error = None
@@ -113,6 +116,7 @@ def login_page(request):
 def upload(request):
     params = {}
     success = False
+    file_exists = False
     file_name = None
     try:
         if request.method == 'POST':
@@ -123,6 +127,14 @@ def upload(request):
             if form.is_valid():
                 print "form is valid"
                 file_name = request.FILES['user_file']
+                #
+                # Verifying whether file with same name exists or not.
+                #
+                #try:
+                #    file_check = Ufile.objects.get(file_name=file_name)
+                #    if file_check:
+                #        params['file_exists'] = True
+                #        
                 user = User.objects.get(username = request.user)
                 ufile = Ufile.objects.create(user_file=file_name, user_profile=user, file_name=file_name)
                 ufile.save()
@@ -150,6 +162,42 @@ def upload(request):
     params['form'] = form
     params['success'] = success
     params['file_name'] = file_name
+    return render_to_response('upload.html', params, context_instance=RequestContext(request))
+
+def upload_file_op(request, id):
+    params = {}
+    try:
+        f = Ufile.objects.get(id=id)
+        filename = f.user_file.url.split('/')[-1]
+        response = HttpResponse(f.user_file, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=%s' %filename
+    except Exception, e:
+        print "File error: ", str(e)
+    return response
+
+
+@login_required(login_url = '/login/')
+def upload_delete(request, id):
+    params = {}
+    del_success = False
+    try:
+        f = Ufile.objects.get(id=id)
+        #
+        # Deleting file
+        #
+        os.remove(FILEPATH + f.user_file.url)
+        #
+        # Saving file name and as file is actually deleted so removing file entry from database.
+        #
+        params['file_delete'] = f.file_name
+        f.delete()
+        del_success = True
+    except Exception, e:
+        print "File delete error: ", str(e)
+
+    params['form'] = UserFileForm()
+    params['files'] = Ufile.objects.filter(user_profile=request.user)
+    params['del_success'] = del_success
     return render_to_response('upload.html', params, context_instance=RequestContext(request))
 
 @login_required(login_url = '/login/')

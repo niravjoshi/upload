@@ -1,3 +1,6 @@
+.username-color {
+    color: oldlace;
+}
 
 .mytop {
     margin-top : 7px;
@@ -25,6 +28,10 @@
     margin-left: 85px;
 }
 
+.link-color {
+    color: black;
+}
+
 .form-left-top {
     margin-left: 85px;
     margin-top: 20px;
@@ -32,7 +39,7 @@
 
 .logout-button {
     margin-left: 20px;
-    margin-right: -755px;
+    margin-right: -790px;
 }
 
 .well-color {

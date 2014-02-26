@@ -1,5 +1,3 @@
-
-# By default the file name will be " 'File-' + today's_date + current_time "
-import datetime
-
-FILENAME = "File-" + datetime.datetime.now().strftime('%d_%b_%Y-%H_%M_%S_%f')
+import os
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+FILEPATH = os.path.join(BASE_DIR,'..')

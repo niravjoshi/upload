@@ -28,14 +28,12 @@
             <div class="col-xs-12">
                 {% block "top" %}
                 <div class="text-center">
-                    <h4>
                     {% if user.first_name %}
-                        <span class="well well-sm"><i>Hello, {{ user.first_name }}</i></span>
+                        <span class="username-color"><b>Hi, {{ user.first_name }}</b></span>
                             <a href="/logout/" class="btn btn-danger logout-button" role="button">Logout</a>
                     {% else %}
                         <h1> Demo Site </h1>
                     {% endif %}
-                    </h4>
                 </div>
                 <hr>
                 {% endblock %}
