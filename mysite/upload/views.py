@@ -126,20 +126,24 @@ def upload(request):
             form = UserFileForm(request.POST, request.FILES)
             if form.is_valid():
                 print "form is valid"
+                user = User.objects.get(username = request.user)
                 file_name = request.FILES['user_file']
                 #
-                # Verifying whether file with same name exists or not.
+                # Verifying whether file with same name exists or not for that user.
                 #
-                #try:
-                #    file_check = Ufile.objects.get(file_name=file_name)
-                #    if file_check:
-                #        params['file_exists'] = True
-                #        
-                user = User.objects.get(username = request.user)
-                ufile = Ufile.objects.create(user_file=file_name, user_profile=user, file_name=file_name)
-                ufile.save()
-                print "File saved"
-                success = True
+                try:
+                    file_check = Ufile.objects.get(user_profile=user, file_name=file_name)
+                except Exception, e:
+                    file_check = None
+                    print "File saving error: ", str(e)
+
+                if file_check:
+                    params['file_exists'] = True
+                else:
+                    ufile = Ufile.objects.create(user_file=file_name, user_profile=user, file_name=file_name)
+                    ufile.save()
+                    print "File saved"
+                    success = True
             #
             # Form is invalid.
             #
@@ -152,7 +156,6 @@ def upload(request):
         #
         else:
             form = UserFileForm()
-            
     except Exception, e:
         print "Error is: ", str(e)
     #
@@ -165,7 +168,6 @@ def upload(request):
     return render_to_response('upload.html', params, context_instance=RequestContext(request))
 
 def upload_file_op(request, id):
-    params = {}
     try:
         f = Ufile.objects.get(id=id)
         filename = f.user_file.url.split('/')[-1]

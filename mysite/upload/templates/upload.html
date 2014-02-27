@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block "left" %}
-{{ MEDIA_ROOT }}
 <div class="well well-lg">
 {% if success %}
     <div class="alert alert-success">
@@ -10,6 +9,14 @@
         You successfully uploaded <b>{{ file_name }}</b> file.
     </div>
 {% endif %}
+{% if file_exists %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        File <b>{{ file_name }}</b> already exists.
+    </div>
+{% endif %}
+
 
 <h4 class="left-block-top">Upload your file.</h4>
 {% url "upload" as upload_file %}
