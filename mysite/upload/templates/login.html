@@ -18,7 +18,7 @@
 {% endif %}
 
 {% url "login" as login_page %}
-
+<h4 class="left-block-top">Login</h4>
 <form name="upload" class="form-horizontal left-block-top "  action="{{ login_page }}" 
     method="POST">
     {% csrf_token %}
