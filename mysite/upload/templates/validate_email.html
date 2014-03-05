@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block "left" %}
+
+<div class="alert alert-success">
+    {% if success %}
+        Your Email id "<b> {{ email }} </b>" is verified successfully.
+        click <a href="/login/" >here to login.</a>
+    {% else %}
+        This link has been expired or your are not a registered user.
+        <p>To register <a href="/login/">click here.</a></p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -10,6 +10,10 @@ urlpatterns = patterns('',
         url(r'upload/(?P<id>\d+)/$', 'upload.views.upload_file_op', name='upload_file_op'),
         url(r'upload/delete/(?P<id>\d+)/$', 'upload.views.upload_delete', name='upload_delete'),
 
+        # email validate
+        url(r'^upload/(?P<user>\D+)/(?P<key>\w+)/$', \
+                'upload.views.validate_email', name='validate_email'),
+
         # logout
         url(r'^logout/$', 'upload.views.logout_page', name='logout_page'),
 )

@@ -4,4 +4,6 @@ FILEPATH = os.path.join(BASE_DIR,'..')
 
 SUBJECT = "Upload Verification Mail"
 MESSAGE = "Please click the below link to verify your email address"
-FROM = "nirav.joshi88@gmail.com"
+FROM = "Upload-Admin@gmail.com"
+
+URL = "http://localhost:8000/upload/"

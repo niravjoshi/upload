@@ -9,3 +9,11 @@ class Ufile(models.Model):
 
     def __unicode__(self):
         return self.file_name
+
+class LinkValidate(models.Model):
+    user = models.ForeignKey(User)
+    rand_key = models.CharField(max_length=64)
+    datetime = models.DateTimeField(auto_now=True)
+
+    def __unicde__(self):
+        return self.user__email

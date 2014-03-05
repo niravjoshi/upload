@@ -1,21 +1,24 @@
+# Python
 import os
 
+# Django
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# Email
-from django.core.mail import send_mail, BadHeaderError, EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
 
+# Model
 from django.contrib.auth.models import User
 from upload.forms import UserFileForm, UserForm
-from upload.models import Ufile
+from upload.models import Ufile, LinkValidate
 
-from upload.constants import FILEPATH, SUBJECT, MESSAGE, FROM
+# Constants
+from upload.constants import FILEPATH
+
+# Utils
+from upload.utils import send_mail
 
 
 def login_page(request):
@@ -95,21 +98,11 @@ def login_page(request):
                         params['form'] = form
                         user_created = None
                         params['user_created'] = "Congrats!!! Account created successfully. Sign in with same credentials"
-                        try:
-                            EMAIL_TO = [email]
-                            link = "http://test.com/"
-                            text_body = get_template('email.txt')
-                            html_body = get_template('email.html')
-                            d = Context({'user': new_user.first_name, 'link': link})
-                            text_content = text_body.render(d)
-                            html_content = html_body.render(d)
-                            msg = EmailMultiAlternatives(SUBJECT, text_content, FROM, EMAIL_TO)
-                            msg.attach_alternative(html_content, "text/html")
-                            msg.send()
-                        except BadHeaderError:
-                            return HttpResponse('Invalid Header')
-                        except Exception, e:
-                            print "Email error: ", str(e)
+                        #
+                        # Sending mail to user for email verification.
+                        #
+                        send_mail(new_user)
+                        print "Email sent successfully."
                 #
                 # Form is invalid
                 #
@@ -130,6 +123,30 @@ def login_page(request):
         params['form'] = UserForm()
 
     return render_to_response('login.html', params, context_instance=RequestContext(request))
+
+def validate_email(request, user, key):
+    params = {}
+    success = False
+    try:
+        #
+        # Verfiying whether this user's email address and key exists in database or not.
+        #
+        check_user = LinkValidate.objects.get(rand_key=key)
+        if check_user:
+            user_name = check_user.user.first_name + check_user.user.last_name
+            if user_name == user:
+                print "User's email is verified."
+                success = True
+                params['email'] = check_user.user.email
+        else:
+            print "User does not exist."
+    except Exception, e:
+        print "Validate email error: ", str(e)
+
+    params['success'] = success
+    return render_to_response('validate_email.html', params, context_instance=RequestContext(request))
+
+
 
 @login_required(login_url = '/login/')
 def upload(request):
