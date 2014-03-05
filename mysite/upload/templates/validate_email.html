@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 
-{% block "left" %}
+{% block "msg" %}
 
-<div class="alert alert-success">
-    {% if success %}
-        Your Email id "<b> {{ email }} </b>" is verified successfully.
-        click <a href="/login/" >here to login.</a>
+<div class="col-xs-7 well">
+    {% if verified %}
+        <div class="alert alert-success">
+            Your Email id "<b> {{ email }} </b>" is verified successfully.
+        </div>
+            Click <a href="/login/" >here to login.</a>
+    {% elif already_verified %}
+        <div class="alert alert-info">
+            <b> Heads up! </b>Your Email id "{{ email }}" is already verified.
+        </div>
+            Click <a href="/login/" >here to login.</a>
+
     {% else %}
-        This link has been expired or your are not a registered user.
-        <p>To register <a href="/login/">click here.</a></p>
+        <div class="alert alert-danger">
+            This link has been expired or you are not a registered user.
+        </div>
+            To create an account <a href="/login/">click here.</a>
     {% endif %}
 </div>
 

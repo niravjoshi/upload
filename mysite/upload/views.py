@@ -53,15 +53,13 @@ def login_page(request):
                             login(request, user)
                             params['user'] = User.objects.get(username=user)
                             return HttpResponseRedirect(reverse(upload))
-                            #return render_to_response('upload.html', params, context_instance=RequestContext(request))
+                        else:
+                            params ['not_verified'] = "Your email address is not verified"
                     else:
-                        invalid = None
                         params['invalid'] = "Invalid email-id or password"
-                        return render_to_response('login.html', params, context_instance=RequestContext(request))
                 else:
                     required = None
                     params['required'] = "Both fields are required"
-                    return render_to_response('login.html', params, context_instance=RequestContext(request))
             #
             # Signup request
             #
@@ -92,12 +90,13 @@ def login_page(request):
                         fname = form.cleaned_data['first_name']
                         lname = form.cleaned_data['last_name']
                         new_user = User.objects.create_user(email, email, password=passwd, first_name=fname, last_name=lname)
+                        new_user.is_active = False
                         new_user.save()
                         print "user saved"
                         print "fname: %s\nlname: %s\nemail: %s\npasswd: %s" %(fname,lname,email,passwd)
                         params['form'] = form
                         user_created = None
-                        params['user_created'] = "Congrats!!! Account created successfully. Sign in with same credentials"
+                        params['user_created'] = "Account created successfully. Sign in with same credentials"
                         #
                         # Sending mail to user for email verification.
                         #
@@ -117,7 +116,7 @@ def login_page(request):
         except Exception, e:
             params['form'] = form
             some_error = None
-            params ['some_error'] = "Oh snap! Something went wrong!!!\n Please try again."
+            params ['some_error'] = "Something went wrong. Please try again."
             print "Login Error: %s" %str(e)
     else:
         params['form'] = UserForm()
@@ -126,24 +125,35 @@ def login_page(request):
 
 def validate_email(request, user, key):
     params = {}
-    success = False
+    verified, already_verified = False, False
     try:
         #
         # Verfiying whether this user's email address and key exists in database or not.
         #
-        check_user = LinkValidate.objects.get(rand_key=key)
-        if check_user:
-            user_name = check_user.user.first_name + check_user.user.last_name
-            if user_name == user:
-                print "User's email is verified."
-                success = True
-                params['email'] = check_user.user.email
+        validate_user = LinkValidate.objects.get(rand_key=key)
+        if validate_user:
+            if validate_user.user.is_active:
+                params['email'] = validate_user.user.email
+                already_verified = True
+            else:
+                user_name = validate_user.user.first_name + validate_user.user.last_name
+                if user_name == user:
+                    #
+                    # As user exists with given email and key, activate that user
+                    #
+                    real_user = User.objects.get(email=validate_user.user.email)
+                    real_user.is_active = True
+                    real_user.save()
+                    verified = True
+                    params['email'] = real_user.email
+                    print "User's email is verified."
         else:
             print "User does not exist."
     except Exception, e:
         print "Validate email error: ", str(e)
 
-    params['success'] = success
+    params['verified'] = verified
+    params['already_verified'] = already_verified
     return render_to_response('validate_email.html', params, context_instance=RequestContext(request))
 
 

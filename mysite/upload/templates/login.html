@@ -9,6 +9,13 @@
         {{invalid}}.
     </div>
 {% endif %}
+{% if not_verified %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">&times;</button>
+        <b>Oh Snap!</b> {{not_verified}}.
+    </div>
+{% endif %}
 {% if required %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert"
@@ -51,7 +58,7 @@
     <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert"
             aria-hidden="true">&times;</button>
-        {{some_error}}.
+        <b>Oh Snap! </b>{{some_error}}.
     </div>
 {% endif %}
 {% if valid_input %}
@@ -79,7 +86,7 @@
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert"
             aria-hidden="true">&times;</button>
-        {{user_created}}.
+        <b>Heads up!</b> {{user_created}}.
     </div>
 {% endif %}
 
