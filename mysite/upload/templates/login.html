@@ -11,7 +11,7 @@
 {% endif %}
 {% if not_verified %}
     <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert"
+        <button type="button" class="close" data-toggle="modal" data-target="#myModal" 
             aria-hidden="true">&times;</button>
         <b>Oh Snap!</b> {{not_verified}}.
     </div>
@@ -84,12 +84,32 @@
 {% endif %}
 {% if user_created %}
     <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert"
+        <button type="button" class="close" data-toggle="modal" data-target="#myModal" 
             aria-hidden="true">&times;</button>
         <b>Heads up!</b> {{user_created}}.
     </div>
 {% endif %}
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Your Account Info</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+            <h3>Your account is created successfully.</h3>
+            <span style="color:black;"><i>Please check your "<b>{{user_email}}</b>" inbox and verify your email address by clicking on the given link to be able to log in successfully.</i></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model ends -->
 <h4 class="right-block-left">New user? Create an account</h4>
 <form name="upload" class="form-horizontal form-left-top"  action="{{ login_page }}" 
     method="POST">

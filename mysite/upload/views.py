@@ -54,7 +54,8 @@ def login_page(request):
                             params['user'] = User.objects.get(username=user)
                             return HttpResponseRedirect(reverse(upload))
                         else:
-                            params ['not_verified'] = "Your email address is not verified"
+                            params ['user_email'] = email
+                            params ['not_verified'] = "Your email address is not yet verified"
                     else:
                         params['invalid'] = "Invalid email-id or password"
                 else:
@@ -96,7 +97,8 @@ def login_page(request):
                         print "fname: %s\nlname: %s\nemail: %s\npasswd: %s" %(fname,lname,email,passwd)
                         params['form'] = form
                         user_created = None
-                        params['user_created'] = "Account created successfully. Sign in with same credentials"
+                        params['user_created'] = "Your registration is completed"
+                        params['user_email'] = new_user.email
                         #
                         # Sending mail to user for email verification.
                         #
