@@ -47,6 +47,28 @@
         File <b>{{ file_delete }}</b> deleted successfully.
     </div>
 {% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning">
+            <span><i>Please confirm whether you want to delete this file or not?</i></span>
+        </div>
+        <div class="col-xs-offset-9">
+          <button type="button" class="btn btn-danger confirm-yes-no" data-dismiss="modal"><b>No</b></button>
+          <a href="" id="fileDelete" class="btn btn-primary confirm-yes-no" role="button"><b>Yes</b></button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Model ends -->
+
 <h4>Your uploaded file list</h4>
     <table class="table table-hover">
         {% if files %}
@@ -64,7 +86,9 @@
                 <td>{{forloop.counter}} </td>
                 <td><a href="/upload/{{file.id}}" toggle="tooltip" 
                         title="Click to download">{{ file.file_name}}</a></td>
-                <td><a href="/upload/delete/{{file.id}}" data-toggle="tooltip" title="Delete file"
+                <!--<td><a href="/upload/delete/{{file.id}}" data-toggle="tooltip" title="Delete file"
+                        <span class="glyphicon glyphicon-trash delete-file"></span></a></td>-->
+                <td><a href="#myModal" data-toggle="modal" title="Delete file" data-id="{{file.id}}" onclick="getvalue(this);"
                         <span class="glyphicon glyphicon-trash delete-file"></span></a></td>
             </tr>
             {% empty %}
@@ -76,3 +100,13 @@
     </table>
 </div>
 {% endblock %}
+
+{% block "page-scripts" %}
+    <script>
+        function getvalue(d){
+            fileId = d.getAttribute("data-id");
+            document.getElementById('fileDelete').href = "/upload/delete/"+fileId;
+        }
+    </script>
+{% endblock %}
+
