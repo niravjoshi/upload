@@ -19,6 +19,10 @@
     width: 125%;
 }
 
+.more-info {
+    margin-left: 10px;
+}
+
 .line-center {
     border-right: 1px solid grey;
     height: 400px;

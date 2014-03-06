@@ -11,9 +11,10 @@
 {% endif %}
 {% if not_verified %}
     <div class="alert alert-danger">
-        <button type="button" class="close" data-toggle="modal" data-target="#myModal" 
+        <button type="button" class="close" data-dismiss="alert" 
             aria-hidden="true">&times;</button>
-        <b>Oh Snap!</b> {{not_verified}}.
+        <b>Oh Snap!</b> {{not_verified}}. <button type="button" class="btn btn-primary btn-xs more-info" \
+            data-toggle="modal" data-target="#myModal">More info</button>
     </div>
 {% endif %}
 {% if required %}
@@ -84,9 +85,10 @@
 {% endif %}
 {% if user_created %}
     <div class="alert alert-success">
-        <button type="button" class="close" data-toggle="modal" data-target="#myModal" 
+        <button type="button" class="close" data-dismiss="alert" 
             aria-hidden="true">&times;</button>
-        <b>Heads up!</b> {{user_created}}.
+        <b>Heads up!</b> {{user_created}}. <button type="button" class="btn btn-primary btn-xs more-info" \
+            data-toggle="modal" data-target="#myModal">More info</button>
     </div>
 {% endif %}
 

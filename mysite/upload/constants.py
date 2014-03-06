@@ -6,4 +6,4 @@ SUBJECT = "Upload Verification Mail"
 MESSAGE = "Please click the below link to verify your email address"
 FROM = "Upload-Admin@gmail.com"
 
-URL = "http://localhost:8000/upload/"
+URL = "http://nirav-desktop.lan.coriolis.co.in:8000/upload/"
