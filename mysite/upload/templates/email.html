@@ -1,4 +1,26 @@
-<strong> Hello, {{ user }} </strong>
-<p> Your account is created successfully.</p>
-<p> Please, click the below link to verify your email address</p>
-{{link}}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+<body>
+<div class="boxed" style="border: 1px solid green; width: 50%; margin-left: 20%;">
+<div class="body" style="margin-left: 10px; margin-top: 10px;">
+Hello {{ user }},
+<h3> Welcome to upload... </h3>
+<p> Thanks for signing up. To start using it, please verify your email address by clicking the link below.</p>
+<form>
+<input type="submit" value="Activate my account and login" onclick="window.location.href="{{link}}"">
+</form>
+<!--<a href="{{link}}">Activate my account and login"</a>-->
+<h3>Enjoy Uploading !</h3>
+<p>
+Thanks,<br/>
+The Upload Team.
+</p>
+</div>
+</div>
+</body>
+</html>
+

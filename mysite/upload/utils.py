@@ -10,7 +10,7 @@ from django.template.loader import get_template
 from django.template import Context
 
 # Constants
-from upload.constants import SUBJECT, MESSAGE, FROM, URL
+from upload.constants import SUBJECT, FROM, URL
 
 # Send email to user for their email address verification.
 def send_mail(user):
