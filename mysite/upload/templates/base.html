@@ -31,6 +31,9 @@
                     {% if user.first_name %}
                         <span class="username-color"><b>Hi, {{ user.first_name }}</b></span>
                             <a href="/logout/" class="btn btn-danger logout-button" role="button">Logout</a>
+                    {% elif user.is_staff %}
+                        <span class="username-color"><b>Hi, {{ user.username }}</b> {Admin}</span>
+                            <a href="/logout/" class="btn btn-danger logout-button" role="button">Logout</a>
                     {% else %}
                         <h1> Demo Site </h1>
                     {% endif %}
