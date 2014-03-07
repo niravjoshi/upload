@@ -215,6 +215,25 @@ def upload(request):
     params['file_name'] = file_name
     return render_to_response('upload.html', params, context_instance=RequestContext(request))
 
+
+def file_sort(request):
+    params = {}
+    sorted_files = []
+    unsorted_files = []
+    try:
+        f = Ufile.objects.filter(user_profile=request.user)
+        for q in f:
+            sorted_files.append(str(q.file_name))
+        print sorted_files
+        print sorted(sorted_files)
+    except Exception, e:
+        print "File sorting error: ", str(e)
+
+    params['files'] = sorted_files
+    params['form'] = UserFileForm()
+    return render_to_response('upload.html', params, context_instance=RequestContext(request))
+
+
 def upload_file_op(request, id):
     try:
         f = Ufile.objects.get(id=id)

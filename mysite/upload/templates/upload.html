@@ -75,19 +75,21 @@
         <thead>
             <tr>
                 <th> </th>
-                <th>File</th>
-                <th colspan="2">Action</th>
+                <th><a href="/upload/sort_by_file/" toggle="tooltip" 
+                        class="link-color" title="Sort by file name">File</a></th>
+                <th colspan="2"><span class="link-color">Action</span></th>
             </tr>
         </thead>
         {% endif %}
         <tbody>
             {% for file in files %}
             <tr>
-                <td>{{forloop.counter}} </td>
-                <td><a href="/upload/{{file.id}}" toggle="tooltip" 
-                        title="Click to download">{{ file.file_name}}</a></td>
-                <td><a href="#myModal" data-toggle="modal" title="Delete file" data-id="{{file.id}}" onclick="getvalue(this);"
-                        <span class="glyphicon glyphicon-trash delete-file"></span></a></td>
+                <td>{{forloop.counter}}</td>
+                <td>{{ file.file_name}}</td>
+                <td><a href="/upload/download/{{file.id}}" toggle="tooltip" title="Download file">
+                        <span class="glyphicon glyphicon-download download-link-color"></span></a>
+                    <a href="#myModal" data-toggle="modal" title="Delete file" data-id="{{file.id}}" onclick="getvalue(this);"
+                        <span class="glyphicon glyphicon-trash delete-file delete-link-color"></span></a></td>
             </tr>
             {% empty %}
             <tr>

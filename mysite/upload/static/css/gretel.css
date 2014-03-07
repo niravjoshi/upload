@@ -23,6 +23,18 @@
     margin-left: 10px;
 }
 
+.link-color {
+    color: black;
+}
+
+.download-link-color {
+    color:green;
+}
+
+.delete-link-color {
+    color:darkred;
+}
+
 .line-center {
     border-right: 1px solid grey;
     height: 400px;

@@ -7,7 +7,8 @@ urlpatterns = patterns('',
 
         # upload
         url(r'^upload/$', 'upload.views.upload', name='upload'),
-        url(r'upload/(?P<id>\d+)/$', 'upload.views.upload_file_op', name='upload_file_op'),
+        url(r'upload/sort_by_file/$', 'upload.views.file_sort', name='file_sort'),
+        url(r'upload/download/(?P<id>\d+)/$', 'upload.views.upload_file_op', name='upload_file_op'),
         url(r'upload/delete/(?P<id>\d+)/$', 'upload.views.upload_delete', name='upload_delete'),
 
         # email validate
