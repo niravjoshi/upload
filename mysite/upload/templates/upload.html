@@ -86,8 +86,6 @@
                 <td>{{forloop.counter}} </td>
                 <td><a href="/upload/{{file.id}}" toggle="tooltip" 
                         title="Click to download">{{ file.file_name}}</a></td>
-                <!--<td><a href="/upload/delete/{{file.id}}" data-toggle="tooltip" title="Delete file"
-                        <span class="glyphicon glyphicon-trash delete-file"></span></a></td>-->
                 <td><a href="#myModal" data-toggle="modal" title="Delete file" data-id="{{file.id}}" onclick="getvalue(this);"
                         <span class="glyphicon glyphicon-trash delete-file"></span></a></td>
             </tr>
