@@ -177,6 +177,10 @@ def upload(request):
                 user = User.objects.get(username = request.user)
                 file_name = request.FILES['user_file']
                 #
+                # Setting file name in lowercase for the ease of sorting it.
+                #
+                file_name._set_name(file_name.name.lower())
+                #
                 # Verifying whether file with same name exists or not for that user.
                 #
                 try:
@@ -221,11 +225,7 @@ def file_sort(request):
     sorted_files = []
     unsorted_files = []
     try:
-        f = Ufile.objects.filter(user_profile=request.user)
-        for q in f:
-            sorted_files.append(str(q.file_name))
-        print sorted_files
-        print sorted(sorted_files)
+        sorted_files = Ufile.objects.filter(user_profile=request.user).order_by('file_name')
     except Exception, e:
         print "File sorting error: ", str(e)
 
